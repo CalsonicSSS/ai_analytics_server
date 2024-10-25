@@ -7,6 +7,7 @@ from io import BytesIO
 from datetime import datetime, timedelta
 import calendar
 from openpyxl.styles import Alignment, Font, PatternFill
+from urllib.parse import quote_plus
 
 
 # SQLAlchemy is a SQL toolkit and Object-Relational Mapping (ORM) library for Python.
@@ -25,9 +26,11 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # PostgreSQL connection string
-conn_string = f"postgresql://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
+# conn_string_local = f"postgresql://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
+conn_string_railway = f"postgresql://{os.getenv('DB_USERNAME')}:{quote_plus(os.getenv('DB_PASSWORD'))}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}?sslmode=require"
+
 # Create SQLAlchemy engine: It handles the details of connecting to and communicating with the database. It serves as the starting point for any database operations in SQLAlchemy.
-engine = create_engine(conn_string)
+engine = create_engine(conn_string_railway)
 
 # Configure Flask-Caching
 # Flask-Caching is a simple caching extension for Flask to add caching support for various backends to any Flask application.
@@ -41,7 +44,7 @@ def home():
     print("/ route reached")
     # using jsonify to convert the Python dictionary to a JSON string as a response payload and send directly to the client side after return statement
     # below is the structure of customizing the response headers, status code and response payload
-    return jsonify({"message": "Welcome to automatic"}), 200, {"Custom-Header1": "custom value 1"}
+    return jsonify({"message": "Welcome to flowmatic"}), 200, {"Custom-Header1": "custom value 1"}
 
 
 # decorator in Flask that maps the URL path '/api/order_status_overview' to the function that follows it (When a request is made to this URL, Flask will execute the function below it)
