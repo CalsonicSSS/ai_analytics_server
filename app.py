@@ -27,7 +27,7 @@ CORS(app)  # Enable CORS for all routes
 
 # PostgreSQL connection string
 # conn_string_local = f"postgresql://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
-conn_string_railway = f"postgresql://{os.getenv('DB_USERNAME')}:{quote_plus(os.getenv('DB_PASSWORD'))}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}?sslmode=require"
+conn_string_railway = f"postgresql://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}?sslmode=require"
 
 # Create SQLAlchemy engine: It handles the details of connecting to and communicating with the database. It serves as the starting point for any database operations in SQLAlchemy.
 engine = create_engine(conn_string_railway)
